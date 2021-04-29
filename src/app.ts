@@ -2,7 +2,7 @@ declare function functionPlot(arg: any): any;
 
 console.log('test start!');
 
-var POS = '[{"ls":"L","contract":{"type":"C","strike":18200,"bid":47.5,"ask":48},"price":48},{"ls":"S","contract":{"type":"C","strike":18300,"bid":33.5,"ask":35.5},"price":33.5}]'
+var POS = '[{"ls":"L","contract":{"type":"C","strike":18000,"bid":88,"ask":90},"price":90},{"ls":"S","contract":{"type":"C","strike":18100,"bid":65,"ask":66},"price":65},{"ls":"L","contract":{"type":"C","strike":18500,"bid":16,"ask":17},"price":17},{"ls":"S","contract":{"type":"C","strike":18300,"bid":33,"ask":34.5},"price":33}]'
 
 /* [{"ls":"L","contract":{"type":"C","strike":18200,"bid":47.5,"ask":48},"price":48},
 {"ls":"S","contract":{"type":"C","strike":18300,"bid":33.5,"ask":35.5},"price":33.5}] */
@@ -18,20 +18,17 @@ function parsePosition(o:any){
 
 $(function () {
 
-  let srcPos = JSON.parse(POS)
-
-
   let pTable = $('table')
   // let m_1 = PositionModel.getTXOInstance(LS.LONG, CP.CALL,Contract.TXO, 16000, 1, 64.5)
+  // m_1.addRow(pTable)
+// PostionStore.getData().push(m_1)
+  let srcPos:Array<any> = JSON.parse(POS)
+  srcPos.forEach(element => {
+    let pos = parsePosition(element)
+    pos.addRow(pTable)
+    PostionStore.getData().push(pos)
+  });
 
-  let m_0 = parsePosition(srcPos[0])
-  let m_1 = parsePosition(srcPos[1])
-
-  console.log(m_0)
-console.log(m_1)
-
-  m_0.addRow(pTable)
-  m_1.addRow(pTable)
 
   $('#addBtn').click(()=>{
     let pTable = $('table')
@@ -50,7 +47,7 @@ console.log(m_1)
 
   })
 
-  PostionStore.getData().push(m_1)
+  
 
   // CanvasBuilder.init()
 
